@@ -3,44 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Калькулятор</title>
+    <title>Telegram Калькулятор Pro</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <div class="calculator">
-        <div class="telegram-header">
-            <span class="app-name">🧮 Калькулятор</span>
-        </div>
-        
-        <div class="display">
-            <input type="text" id="result" readonly placeholder="0">
-        </div>
-        
-        <div class="buttons">
-            <button class="function" onclick="clearDisplay()">C</button>
-            <button class="function" onclick="deleteLast()">⌫</button>
-            <button class="function" onclick="calculatePercentage()">%</button>
-            <button class="operator" onclick="appendOperator('/')">÷</button>
+    <div class="calculator-container">
+        <div class="calculator">
+            <div class="telegram-header">
+                <span class="app-name">🧮 Калькулятор Pro</span>
+                <span class="app-version">v2.0</span>
+            </div>
             
-            <button onclick="appendNumber('7')">7</button>
-            <button onclick="appendNumber('8')">8</button>
-            <button onclick="appendNumber('9')">9</button>
-            <button class="operator" onclick="appendOperator('*')">×</button>
+            <div class="display-container">
+                <div class="expression" id="expression"></div>
+                <input type="text" id="result" class="result" readonly placeholder="0">
+                <div class="memory-indicator" id="memoryIndicator"></div>
+            </div>
             
-            <button onclick="appendNumber('4')">4</button>
-            <button onclick="appendNumber('5')">5</button>
-            <button onclick="appendNumber('6')">6</button>
-            <button class="operator" onclick="appendOperator('-')">−</button>
+            <div class="memory-buttons">
+                <button class="memory-btn" onclick="memoryClear()" title="Очистить память">MC</button>
+                <button class="memory-btn" onclick="memoryRecall()" title="Вызвать из памяти">MR</button>
+                <button class="memory-btn" onclick="memoryAdd()" title="Добавить в память">M+</button>
+                <button class="memory-btn" onclick="memorySubtract()" title="Вычесть из памяти">M-</button>
+                <button class="memory-btn" onclick="memoryStore()" title="Сохранить в память">MS</button>
+            </div>
             
-            <button onclick="appendNumber('1')">1</button>
-            <button onclick="appendNumber('2')">2</button>
-            <button onclick="appendNumber('3')">3</button>
-            <button class="operator" onclick="appendOperator('+')">+</button>
+            <div class="buttons">
+                <button class="function" onclick="clearAll()">AC</button>
+                <button class="function" onclick="deleteLast()">⌫</button>
+                <button class="function" onclick="calculatePercentage()">%</button>
+                <button class="operator" onclick="appendOperator('/')">÷</button>
+                
+                <button class="function scientific" onclick="appendFunction('sin(')">sin</button>
+                <button class="function scientific" onclick="appendFunction('cos(')">cos</button>
+                <button class="function scientific" onclick="appendFunction('tan(')">tan</button>
+                <button class="operator" onclick="appendOperator('*')">×</button>
+                
+                <button class="function scientific" onclick="appendFunction('log(')">log</button>
+                <button class="function scientific" onclick="appendFunction('ln(')">ln</button>
+                <button class="function scientific" onclick="appendFunction('sqrt(')">√</button>
+                <button class="operator" onclick="appendOperator('-')">−</button>
+                
+                <button class="function scientific" onclick="appendConstant('pi')">π</button>
+                <button class="function scientific" onclick="appendConstant('e')">e</button>
+                <button class="function scientific" onclick="appendFunction('^')">xʸ</button>
+                <button class="operator" onclick="appendOperator('+')">+</button>
+                
+                <button class="number" onclick="appendNumber('7')">7</button>
+                <button class="number" onclick="appendNumber('8')">8</button>
+                <button class="number" onclick="appendNumber('9')">9</button>
+                <button class="operator bracket" onclick="appendBracket('(')">(</button>
+                
+                <button class="number" onclick="appendNumber('4')">4</button>
+                <button class="number" onclick="appendNumber('5')">5</button>
+                <button class="number" onclick="appendNumber('6')">6</button>
+                <button class="operator bracket" onclick="appendBracket(')')">)</button>
+                
+                <button class="number" onclick="appendNumber('1')">1</button>
+                <button class="number" onclick="appendNumber('2')">2</button>
+                <button class="number" onclick="appendNumber('3')">3</button>
+                <button class="function" onclick="calculateReciprocal()">1/x</button>
+                
+                <button class="number zero" onclick="appendNumber('0')">0</button>
+                <button class="number" onclick="appendNumber('.')">.</button>
+                <button class="function" onclick="calculateSquare()">x²</button>
+                <button class="equals" onclick="calculate()">=</button>
+            </div>
             
-            <button onclick="appendNumber('0')" class="zero">0</button>
-            <button onclick="appendNumber('.')">.</button>
-            <button class="equals" onclick="calculate()">=</button>
+            <div class="history-panel" id="historyPanel">
+                <div class="history-header">
+                    <span>История</span>
+                    <button class="clear-history" onclick="clearHistory()">🗑️</button>
+                </div>
+                <div class="history-list" id="historyList"></div>
+            </div>
         </div>
     </div>
     
